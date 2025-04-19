@@ -1,7 +1,8 @@
 import { Hono } from "hono";
-import { serve } from "@hono/node-server"; // 导入 serve
+import { handle } from "hono/vercel";
+import { serve } from "@hono/node-server";
 
-const app = new Hono();
+const app = new Hono().basePath("/api");
 
 app.get("/", (c) => {
 	return c.text("Hello Hono!");
@@ -18,4 +19,10 @@ if (process.env.NODE_ENV !== "production") {
 	});
 }
 
-export default app; // Vercel 仍然需要默认导出
+const handler = handle(app);
+
+export const GET = handler;
+export const POST = handler;
+export const PATCH = handler;
+export const PUT = handler;
+export const OPTIONS = handler;
