@@ -3,6 +3,8 @@ import { handle } from "hono/vercel";
 import { serve } from "@hono/node-server";
 import prisma from "../lib/prisma";
 
+export const runtime = "edge";
+
 const app = new Hono().basePath("/api");
 
 app.get("/", (c) => {

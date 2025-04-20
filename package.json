@@ -3,8 +3,10 @@
 	"packageManager": "pnpm@9.12.1",
 	"type": "module",
 	"scripts": {
+		"postinstall": "prisma generate",
 		"dev": "tsx watch api/index.ts",
 		"start": "vercel dev",
+		"preview": "prisma generate && vercel",
 		"deploy": "vercel"
 	},
 	"dependencies": {
