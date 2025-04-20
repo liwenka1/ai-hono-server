@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
+  name         String
+  password     String
+  vipLevel     Int          @default(0) // 0=普通用户，1=VIP1，2=VIP2
+  vipExpiresAt DateTime? // VIP过期时间
+  dailyUsage   DailyUsage[]
+}
+
+model DailyUsage {
+  id         Int    @id @default(autoincrement())
+  userId     Int
+  user       User   @relation(fields: [userId], references: [id])
+  date       String @db.VarChar(10) // 存储日期字符串如 "2023-12-31"
+  imageCount Int    @default(0)
+  videoCount Int    @default(0)
+
+  @@unique([userId, date]) // 唯一约束确保每天一条记录
+}
