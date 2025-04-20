@@ -9,7 +9,6 @@ app.get("/", (c) => {
 	return c.text("Hello Hono!");
 });
 
-// 获取所有已发布的帖子
 app.get("/user", async (c) => {
 	try {
 		const posts = await prisma.user.findMany();
