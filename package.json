@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "tsx watch api/index.ts",
 		"start": "vercel dev",
-		"deploy": "npx prisma generate && vercel"
+		"deploy": "vercel",
+		"build": "npx prisma generate"
 	},
 	"dependencies": {
 		"@prisma/client": "^6.6.0",
